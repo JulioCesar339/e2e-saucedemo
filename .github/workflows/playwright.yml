@@ -39,15 +39,17 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 11
+
+          #version: 11
           # pnpm/action-setup → action oficial de pnpm para GitHub Actions
           # Instala pnpm v9 en el runner antes de usarlo
 
       # -----------------------------------------------
       # PASO 3: Configurar Node.js con caché de pnpm
       # -----------------------------------------------
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
         with:
           node-version: "20"
           cache: "pnpm"
