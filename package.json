@@ -2,7 +2,7 @@
   "name": "e2e-saucedemo",
   "version": "1.0.0",
   "description": "Suite E2E sobre SauceDemo con Playwright + TypeScript",
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@11.3.0",
   "scripts": {
     "test": "playwright test",
     "test:headed": "playwright test --headed",

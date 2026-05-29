@@ -39,7 +39,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 11
           # pnpm/action-setup → action oficial de pnpm para GitHub Actions
           # Instala pnpm v9 en el runner antes de usarlo
 
