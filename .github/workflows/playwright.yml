@@ -1,86 +1,43 @@
 # .github/workflows/playwright.yml
-# Pipeline CI/CD para ejecutar los tests E2E en GitHub Actions
-# Fuente: https://playwright.dev/docs/ci-intro
-#
-# ¿Por qué GitHub Actions?
-# Es gratuito para repositorios públicos, está integrado en GitHub
-# y no requiere infraestructura externa. Cada push ejecuta los tests
-# y publica el reporte automáticamente.
+# Pipeline CI/CD con pnpm para ejecutar los tests E2E en GitHub Actions
 
 name: Playwright E2E Tests
-# Nombre del workflow — aparece en la pestaña "Actions" de GitHub
 
 on:
   push:
     branches: [main, master]
-    # Se ejecuta en cada push a las ramas principales
   pull_request:
     branches: [main, master]
-    # También se ejecuta en Pull Requests antes de hacer merge
   workflow_dispatch:
-    # Permite ejecutar el workflow manualmente desde la UI de GitHub
 
 jobs:
   test:
     name: Run E2E Tests
     runs-on: ubuntu-latest
-    # ubuntu-latest → runner gratuito de GitHub con Ubuntu
 
     steps:
-      # -----------------------------------------------
-      # PASO 1: Checkout del código
-      # -----------------------------------------------
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # -----------------------------------------------
-      # PASO 2: Instalar pnpm
-      # -----------------------------------------------
-      # - name: Setup pnpm
-      #  uses: pnpm/action-setup@v4
-      # with:
-
-      #version: 11
-      # pnpm/action-setup → action oficial de pnpm para GitHub Actions
-      # Instala pnpm v9 en el runner antes de usarlo
-
-      # -----------------------------------------------
-      # PASO 3: Configurar Node.js con caché de pnpm
-      # -----------------------------------------------
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
+        # Sin "with: version" — lee la versión del packageManager en package.json
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "pnpm"
-          # cache: "pnpm" → cachea el store de pnpm entre runs
-          # Esto hace que la segunda ejecución sea mucho más rápida
 
-      # -----------------------------------------------
-      # PASO 4: Instalar dependencias
-      # -----------------------------------------------
       - name: Install dependencies
         run: pnpm install
-        # pnpm install → equivalente a npm ci pero más rápido
-        # Lee el pnpm-lock.yaml para instalar versiones exactas
 
-      # -----------------------------------------------
-      # PASO 5: Instalar navegadores de Playwright
-      # -----------------------------------------------
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps chromium
-        # pnpm exec → ejecuta un binario de las devDependencies del proyecto
-        # --with-deps → instala las dependencias del sistema que necesita Chromium
 
-      # -----------------------------------------------
-      # PASO 6: Ejecutar los tests
-      # -----------------------------------------------
       - name: Run Playwright tests
         run: pnpm exec playwright test
 
-      # -----------------------------------------------
-      # PASO 7: Subir el reporte HTML
-      # -----------------------------------------------
       - name: Upload test report
         uses: actions/upload-artifact@v4
         if: always()
@@ -89,9 +46,6 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-  # -----------------------------------------------
-  # JOB 2: Publicar reporte en GitHub Pages
-  # -----------------------------------------------
   deploy-report:
     name: Deploy Report to GitHub Pages
     needs: test
