@@ -4,7 +4,19 @@ Suite de automatización E2E sobre [saucedemo.com](https://www.saucedemo.com),
 un e-commerce público diseñado específicamente para practicar QA.
 
 ---
+## 📸 Evidencias
 
+**Reporte de Playwright — 11 tests en verde**
+![Playwright Report](docs/evidences/playwright-report.png)
+
+**GitHub Actions CI/CD en verde**
+![GitHub Actions](docs/evidences/github-actions.png)
+
+**Resultados de carga con k6**
+![k6 Load Test](docs/evidences/k6-results.png)
+
+**Reporte publicado en GitHub Pages**
+![GitHub Pages](docs/evidences/github-pages.png)
 ## 🧠 ¿Por qué cada tecnología?
 
 | Tecnología | Motivo |
