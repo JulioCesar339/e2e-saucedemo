@@ -36,13 +36,13 @@ jobs:
       # -----------------------------------------------
       # PASO 2: Instalar pnpm
       # -----------------------------------------------
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
+      # - name: Setup pnpm
+      #  uses: pnpm/action-setup@v4
+      # with:
 
-          #version: 11
-          # pnpm/action-setup → action oficial de pnpm para GitHub Actions
-          # Instala pnpm v9 en el runner antes de usarlo
+      #version: 11
+      # pnpm/action-setup → action oficial de pnpm para GitHub Actions
+      # Instala pnpm v9 en el runner antes de usarlo
 
       # -----------------------------------------------
       # PASO 3: Configurar Node.js con caché de pnpm
