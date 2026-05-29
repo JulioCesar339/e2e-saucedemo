@@ -25,6 +25,9 @@ un e-commerce público diseñado específicamente para practicar QA.
 | Tiempo de ejecución | ~37s |
 | Páginas cubiertas | Login, Inventory, Cart, Checkout |
 | Tasa de error bajo carga | 0% con 50 usuarios simultáneos |
+| Requests procesados         | 2,583 en 2min                  |
+| P95 response time           | 196ms                          |
+| Promedio response time      | 66ms                           |
 | Pipeline CI/CD | Automático en cada push |
 
 ---
