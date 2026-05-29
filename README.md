@@ -9,8 +9,9 @@ un e-commerce público diseñado específicamente para practicar QA.
 
 | Tecnología | Motivo |
 |---|---|
-| **Playwright + TypeScript** | Playwright es el estándar moderno para E2E: soporta múltiples navegadores, tiene auto-wait nativo (evita `sleep` frágiles) y TypeScript agrega tipado estático que previene errores en los selectores y métodos |
-| **Page Object Model (POM)** | Separa la lógica de los tests de la estructura del DOM. Si cambia un selector, solo se edita en un lugar (la Page) y todos los tests se adaptan automáticamente |
+| **Playwright + TypeScript** | Estándar moderno para E2E: soporta múltiples navegadores, tiene auto-wait nativo (evita `sleep` frágiles) y TypeScript agrega tipado estático que previene errores en selectores y métodos |
+| **Page Object Model (POM)** | Separa la lógica de los tests de la estructura del DOM. Si cambia un selector, solo se edita en un lugar y todos los tests se adaptan automáticamente |
+| **pnpm** | Gestor de paquetes ~2x más rápido que npm. Usa hard links en un store global — cada paquete se descarga una sola vez y se reutiliza entre proyectos, ahorrando tiempo y espacio en disco |
 | **k6** | Herramienta de performance testing en JavaScript. Simula múltiples usuarios simultáneos para medir tiempos de respuesta y detectar cuellos de botella bajo carga |
 | **GitHub Actions** | CI/CD gratuito integrado en GitHub. Ejecuta los tests automáticamente en cada push y publica el reporte en GitHub Pages |
 
@@ -20,8 +21,8 @@ un e-commerce público diseñado específicamente para practicar QA.
 
 | Métrica | Valor |
 |---|---|
-| Tests E2E | 18 |
-| Tiempo de ejecución | < 10 segundos |
+| Tests E2E | 11 |
+| Tiempo de ejecución | ~37s |
 | Páginas cubiertas | Login, Inventory, Cart, Checkout |
 | Tasa de error bajo carga | 0% con 50 usuarios simultáneos |
 | Pipeline CI/CD | Automático en cada push |
@@ -45,6 +46,7 @@ e2e-saucedemo/
 │       └── load-test.js    ← Test de carga
 ├── playwright.config.ts    ← Configuración global de Playwright
 ├── global-setup.ts         ← Setup previo a los tests
+├── .gitignore
 └── .github/workflows/
     └── playwright.yml      ← Pipeline CI/CD
 ```
@@ -55,20 +57,22 @@ e2e-saucedemo/
 
 ```bash
 # 1. Clonar
-git clone https://github.com/TU_USUARIO/e2e-saucedemo.git
+git clone https://github.com/JulioCesar339/e2e-saucedemo.git
 cd e2e-saucedemo
 
 # 2. Instalar dependencias
-npm install
-npx playwright install chromium
+pnpm install
 
-# 3. Correr tests
-npx playwright test
+# 3. Instalar navegador
+pnpm exec playwright install chromium
 
-# 4. Ver reporte
-npx playwright show-report
+# 4. Correr tests
+pnpm exec playwright test
 
-# 5. Correr test de carga
+# 5. Ver reporte
+pnpm exec playwright show-report
+
+# 6. Correr test de carga
 k6 run tests/k6/load-test.js
 ```
 
@@ -84,11 +88,15 @@ k6 run tests/k6/load-test.js
 
 ### Inventario
 - ✅ Lista de productos visible tras login
-- ✅ Ordenar productos A→Z y Z→A
+- ✅ Ordenar productos Z→A
 - ✅ Ordenar por precio (menor → mayor)
 - ✅ Agregar producto al carrito
 
 ### Checkout
 - ✅ Flujo completo de compra (add → cart → checkout → confirm)
+- ✅ Verificar precio total correcto
 - ❌ Checkout sin datos de envío
-- ✅ Verificar precio total
+
+---
+
+Desarrollado por **Julio César Cabrera Hernández**
